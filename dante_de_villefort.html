@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un Juramento de Honor – Dante de Villefort</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --gold:       #c9a84c;
+    --gold-light: #e8d08a;
+    --gold-dark:  #8a6820;
+    --parchment:  #f5edd8;
+    --ink:        #1a1209;
+    --ink-mid:    #2e2010;
+    --sepia:      #6b4c25;
+    --rust:       #8b3a1a;
+    --shadow:     rgba(10,5,0,0.65);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: #100b04;
+    color: var(--ink);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ── GRAIN OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 1000;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.35;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: radial-gradient(ellipse 80% 70% at 50% 40%, #2a1a07 0%, #0d0702 100%);
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 20% 80%, rgba(201,168,76,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(139,58,26,0.10) 0%, transparent 50%);
+  }
+
+  /* decorative corner rules */
+  .hero::after {
+    content: '';
+    position: absolute; inset: 24px;
+    border: 1px solid rgba(201,168,76,0.18);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 3rem 2rem 2rem;
+    max-width: 900px;
+    animation: fadeUp 1.4s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+    opacity: 0.85;
+    animation: fadeUp 1.4s 0.2s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: clamp(2.2rem, 7vw, 5rem);
+    font-weight: 700;
+    color: var(--parchment);
+    line-height: 1.15;
+    text-shadow: 0 4px 40px rgba(201,168,76,0.35), 0 2px 6px rgba(0,0,0,0.9);
+    animation: fadeUp 1.4s 0.35s ease both;
+  }
+
+  .hero-title span {
+    display: block;
+    color: var(--gold-light);
+    font-size: clamp(1.6rem, 5vw, 3.5rem);
+    margin-top: 0.4rem;
+  }
+
+  /* ornament divider */
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2rem auto;
+    animation: fadeUp 1.4s 0.5s ease both;
+  }
+  .ornament-line {
+    flex: 1; max-width: 120px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .ornament-diamond {
+    width: 10px; height: 10px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    box-shadow: 0 0 12px var(--gold);
+  }
+
+  /* hero image */
+  .hero-image-wrap {
+    position: relative;
+    width: min(580px, 90vw);
+    margin: 0 auto 2.5rem;
+    animation: fadeUp 1.4s 0.6s ease both;
+  }
+
+  .hero-image-wrap::before,
+  .hero-image-wrap::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border: 1px solid var(--gold-dark);
+    opacity: 0.6;
+  }
+  .hero-image-wrap::after {
+    inset: -12px;
+    opacity: 0.25;
+  }
+
+  .hero-img {
+    width: 100%;
+    display: block;
+    filter: sepia(20%) contrast(1.05) brightness(0.95);
+    box-shadow: 0 20px 80px rgba(0,0,0,0.85), 0 0 0 1px rgba(201,168,76,0.3);
+  }
+
+  /* hero quote */
+  .hero-quote {
+    font-style: italic;
+    font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+    color: rgba(245,237,216,0.75);
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    animation: fadeUp 1.4s 0.75s ease both;
+  }
+
+  .hero-attribution {
+    margin-top: 0.5rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+
+  /* scroll cue */
+  .scroll-cue {
+    position: absolute;
+    bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: var(--gold); opacity: 0.4;
+    font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 0.2em;
+    text-transform: uppercase;
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+  .scroll-cue svg { width: 18px; height: 18px; }
+  @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:0.8} }
+
+  /* ── MAIN CONTENT WRAPPER ── */
+  .manuscript {
+    background: var(--parchment);
+    position: relative;
+  }
+
+  /* Parchment texture */
+  .manuscript::before {
+    content: '';
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.35' numOctaves='6' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23p)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .chapter-container {
+    position: relative; z-index: 1;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 5rem 3rem;
+  }
+
+  @media (max-width: 600px) {
+    .chapter-container { padding: 3rem 1.4rem; }
+  }
+
+  /* ── OPENING PULL QUOTE ── */
+  .pull-quote {
+    position: relative;
+    background: var(--ink);
+    color: var(--parchment);
+    padding: 4rem 3.5rem;
+    margin: 0;
+    text-align: center;
+  }
+
+  .pull-quote::before {
+    content: '';
+    position: absolute; inset: 12px;
+    border: 1px solid rgba(201,168,76,0.25);
+    pointer-events: none;
+  }
+
+  .pull-quote blockquote {
+    font-style: italic;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    line-height: 1.8;
+    color: rgba(245,237,216,0.9);
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  .pull-quote blockquote::before {
+    content: '\201C';
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 5rem;
+    color: var(--gold);
+    line-height: 0;
+    vertical-align: -2.5rem;
+    margin-right: 0.2rem;
+    opacity: 0.6;
+  }
+
+  /* ── CHAPTER HEADER ── */
+  .chapter-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.8rem;
+    margin-top: 3.5rem;
+  }
+
+  .chapter-numeral {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    color: var(--gold-dark);
+    line-height: 1;
+    opacity: 0.35;
+    flex-shrink: 0;
+  }
+
+  .chapter-title-wrap { flex: 1; }
+
+  .chapter-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 0.25rem;
+  }
+
+  .chapter-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.2rem, 3vw, 1.75rem);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .chapter-rule {
+    height: 2px;
+    background: linear-gradient(to right, var(--gold-dark), transparent);
+    margin-bottom: 1.8rem;
+    opacity: 0.5;
+  }
+
+  /* ── BODY TEXT ── */
+  .chapter-body p {
+    margin-bottom: 1.3em;
+    text-align: justify;
+    hyphens: auto;
+    color: var(--ink-mid);
+  }
+
+  .chapter-body p:first-child::first-letter {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 4.2em;
+    font-weight: 700;
+    float: left;
+    line-height: 0.82;
+    margin: 0.08em 0.12em 0 0;
+    color: var(--gold-dark);
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.08);
+  }
+
+  /* dialogue */
+  .dialogue {
+    border-left: 3px solid var(--gold-dark);
+    padding: 0.8rem 1.4rem;
+    margin: 1.5rem 0;
+    background: rgba(201,168,76,0.06);
+    font-style: italic;
+    color: var(--sepia);
+  }
+
+  /* ── CLOSING QUOTE ── */
+  .final-quote {
+    position: relative;
+    margin: 0;
+    background: var(--ink);
+    color: var(--parchment);
+    padding: 5rem 3.5rem 4rem;
+    text-align: center;
+  }
+
+  .final-quote::before {
+    content: '';
+    position: absolute; inset: 14px;
+    border: 1px solid rgba(201,168,76,0.2);
+    pointer-events: none;
+  }
+
+  .final-quote blockquote {
+    font-style: italic;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    line-height: 1.85;
+    max-width: 660px;
+    margin: 0 auto 2rem;
+    color: rgba(245,237,216,0.88);
+  }
+
+  .final-attribution {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 1.5rem;
+  }
+
+  /* ── SECTION DIVIDER ── */
+  .section-break {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin: 3rem 0;
+  }
+  .section-break hr {
+    flex: 1; border: none;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-dark), transparent);
+    opacity: 0.4;
+  }
+  .section-break-symbol {
+    font-family: 'Cinzel Decorative', cursive;
+    color: var(--gold-dark);
+    font-size: 1.1rem;
+    opacity: 0.5;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080502;
+    color: rgba(245,237,216,0.3);
+    text-align: center;
+    padding: 2.5rem 1rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  footer span { color: var(--gold); opacity: 0.5; }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <div class="hero-content">
+    <p class="hero-subtitle">Un Juramento de Honor</p>
+
+    <h1 class="hero-title">
+      La Historia de
+      <span>Dante de Villefort</span>
+    </h1>
+
+    <div class="ornament">
+      <div class="ornament-line"></div>
+      <div class="ornament-diamond"></div>
+      <div class="ornament-line"></div>
+    </div>
+
+    <!-- Hero image — using the PDF cover image via Unsplash placeholder
+         matching the desert/ancient city + armored knight aesthetic -->
+    <div class="hero-image-wrap">
+      <img
+        class="hero-img"
+        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80"
+        alt="Dante de Villefort — Capitán de la Séptima"
+        onerror="this.style.display='none'"
+      >
+    </div>
+
+    <p class="hero-quote">
+      "La justicia no es un destino al que se llega, es el camino que se recorre
+      cuando todas las luces se han apagado…"
+    </p>
+    <p class="hero-attribution">— Dante de Villefort</p>
+  </div>
+
+  <div class="scroll-cue">
+    <span>Leer</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ══════════════ OPENING QUOTE ══════════════ -->
+<div class="pull-quote">
+  <blockquote>
+    La justicia no es un destino al que se llega, es el camino que se recorre
+    cuando todas las luces se han apagado. El hombre que solo es justo cuando
+    le miran, no es justo; es solo un actor con miedo al escenario.
+  </blockquote>
+</div>
+
+<!-- ══════════════ MANUSCRIPT ══════════════ -->
+<main class="manuscript">
+  <div class="chapter-container">
+
+    <!-- CHAPTER I -->
+    <article class="reveal">
+      <div class="chapter-header">
+        <div class="chapter-numeral">I</div>
+        <div class="chapter-title-wrap">
+          <p class="chapter-label">Capítulo Primero</p>
+          <h2 class="chapter-title">El Cachorro de la Séptima</h2>
+        </div>
+      </div>
+      <div class="chapter-rule"></div>
+      <div class="chapter-body">
+        <p>Dante no nació en la seda, sino sobre la piedra fría del Bastión de la Vigilia. Sus primeros recuerdos no son nanas, sino el rítmico marchar de las botas sobre el empedrado y el eco de las órdenes al alba. No recordaba a su padre. Su madre falleció en una mina, en la cual trabajaba de sol a sol. El pequeño y joven Dante, sobrevivía de las limosnas y mendrugos de pan mohosos que encontraba cerca de los puestos ambulantes.</p>
+        <p>Recogido del barro por el sargento Tíber de Villefort, tras una escaramuza de la que nadie quería hablar, el niño se convirtió en la mascota de la Séptima Compañía. Se crió en los pasillos de la guarnición, oliendo a aceite de armadura, cuero viejo y ese estofado barato que solo sabe bien cuando se tiene un hambre atroz.</p>
+        <p>Mientras otros niños aprendían letras y juegos, Dante aprendía a identificar el sonido de una ballesta tensándose a cien pasos o el brillo casi imperceptible de un puñal mal escondido bajo una capa. Los veteranos, hombres curtidos con manos como piedras, le enseñaron que la vida es un mecanismo de relojería: si cada pieza —desde el campesino hasta el rey— cumplía su deber, la maquinaria del mundo seguía girando. Si una sola fallaba, el tiempo se detenía.</p>
+      </div>
+    </article>
+
+    <div class="section-break reveal">
+      <hr><span class="section-break-symbol">⚔</span><hr>
+    </div>
+
+    <!-- CHAPTER II -->
+    <article class="reveal">
+      <div class="chapter-header">
+        <div class="chapter-numeral">II</div>
+        <div class="chapter-title-wrap">
+          <p class="chapter-label">Capítulo Segundo</p>
+          <h2 class="chapter-title">La Justicia Transversal</h2>
+        </div>
+      </div>
+      <div class="chapter-rule"></div>
+      <div class="chapter-body">
+        <p>Su ascenso fue el triunfo de la eficiencia sobre el linaje. A los veinte años ya era un oficial respetado, pero lo que realmente lo diferenciaba era su "ceguera" ante las razas. En una ciudad donde el odio al extranjero era la herramienta de control favorita de la aristocracia, Dante aplicaba el código de forma quirúrgica.</p>
+        <p>En sus patrullas por los barrios bajos, no era raro ver al Capitán De Villefort compartiendo un tabaco de hoja ancha con un minero enano o escuchando con respeto las quejas de un mercader elfo sobre las tasas de aduana. Para Dante, si un individuo respetaba la ley, era un ciudadano bajo su protección; si la rompía, era un criminal, sin importar la forma de sus orejas o el color de su piel.</p>
+        <p>No aceptaba oro, pues decía que el metal noble pesaba demasiado en la conciencia, pero aceptaba la hospitalidad honesta: un odre de vino, una comida caliente o pequeños obsequios que siempre terminaban en la mesa común del cuartel.</p>
+        <div class="dialogue">
+          "La justicia no tiene sangre, solo actos."
+        </div>
+        <p>Ganándose el amor de los oprimidos y el odio silencioso de quienes basaban su poder en el racismo.</p>
+      </div>
+    </article>
+
+    <div class="section-break reveal">
+      <hr><span class="section-break-symbol">⚔</span><hr>
+    </div>
+
+    <!-- CHAPTER III -->
+    <article class="reveal">
+      <div class="chapter-header">
+        <div class="chapter-numeral">III</div>
+        <div class="chapter-title-wrap">
+          <p class="chapter-label">Capítulo Tercero</p>
+          <h2 class="chapter-title">La Noche de los Edictos</h2>
+        </div>
+      </div>
+      <div class="chapter-rule"></div>
+      <div class="chapter-body">
+        <p>La tragedia se fraguó en la oscuridad. El Consejo de la Ciudad, presionado por los intereses comerciales de las grandes casas humanas, dictaminó la demolición del "Barrio de los Ecos". El pretexto oficial era una "conspiración sediciosa" entre las razas no humanas para derrocar al gobierno. Era una mentira absoluta, un edicto de sangre redactado para limpiar el terreno.</p>
+        <p>Dante fue enviado con la Séptima para liderar el asalto. Tiber, su mentor y figura paterna, del cual había abrazado hasta su apellido, cabalgaba a su lado. Al llegar, Dante no encontró armas ni insurgentes. Encontró a las mismas personas con las que había compartido tabaco: familias durmiendo y artesanos aterrorizados.</p>
+        <p>Cuando Tíber le dio la orden de prender fuego a las casas con la gente dentro, el mundo de Dante se detuvo. Miró a su mentor, buscando una chispa de la rectitud que creía que le había enseñado. Pero solo vio avaricia.</p>
+        <div class="dialogue">
+          — "Dante, el Consejo ha prometido títulos y tierras a la Séptima por este 'servicio'. No seas un necio idealista. Estas razas no son más que estorbos en el progreso de los hombres."
+        </div>
+        <p>Dante comprendió entonces el amargo giro de su vida: Tiber no lo había criado para ser un hombre de justicia, sino para ser el perro guardián más eficiente de un sistema podrido. Su mentor nunca había creído en la ley, sólo en la obediencia.</p>
+      </div>
+    </article>
+
+    <div class="section-break reveal">
+      <hr><span class="section-break-symbol">⚔</span><hr>
+    </div>
+
+    <!-- CHAPTER IV -->
+    <article class="reveal">
+      <div class="chapter-header">
+        <div class="chapter-numeral">IV</div>
+        <div class="chapter-title-wrap">
+          <p class="chapter-label">Capítulo Cuarto</p>
+          <h2 class="chapter-title">El Juicio de las Sombras y el Exilio</h2>
+        </div>
+      </div>
+      <div class="chapter-rule"></div>
+      <div class="chapter-body">
+        <p>Dante se interpuso. Desenvainó su espada contra sus propios hermanos de armas para proteger a aquellos a quienes el sistema consideraba "escoria". Fue una masacre breve. Su propia compañía, cegada por la promesa de oro y tierras, lo rodeó. Tiber mismo fue quien, con una maza pesada, le destrozó el pómulo mientras otros tres soldados le hundían el acero en las costuras de la armadura.</p>
+        <p>No murió. El Consejo lo quería vivo para que sirviera de ejemplo. Fue sometido a un juicio secreto donde se le acusó de "traición racial" y de haberse "rebelado contra el Consejo". Sus insignias fueron fundidas y lo arrojaron a un carromato de prisioneros con destino a las Tierras de Primus.</p>
+      </div>
+    </article>
+
+    <div class="section-break reveal">
+      <hr><span class="section-break-symbol">⚔</span><hr>
+    </div>
+
+    <!-- CHAPTER V -->
+    <article class="reveal">
+      <div class="chapter-header">
+        <div class="chapter-numeral">V</div>
+        <div class="chapter-title-wrap">
+          <p class="chapter-label">Capítulo Quinto</p>
+          <h2 class="chapter-title">El Despertar en Primus</h2>
+        </div>
+      </div>
+      <div class="chapter-rule"></div>
+      <div class="chapter-body">
+        <p>Una vez llegada la carreta a su destino, Dante fue arrojado cerca de las costas de Primus como si fuera restos de un naufragio escupido por las olas hacia la orilla. La arena entró en sus llagas y el sol calcinó lo que quedaba de su voluntad humana. Durante los primeros meses, vagó como un fantasma. Aprendió a cazar con las manos temblorosas y a remendar su capa de capitán con fibras de plantas salvajes. La herida de su rostro cerró mal, dejando una cordillera de piel rugosa que le dificultaba sonreír, pero que le daba un aire de estatua antigua y severa.</p>
+        <p>Descubrió que en este lugar salvaje, la justicia de las ciudades era una máscara para la envidia y la debilidad. Aquí, en lo que él consideraba su exilio, nadie podía ser juzgado por su nombre o su oro, solo por lo que era capaz de hacer frente a la adversidad. Dante se negó a convertirse en un monstruo. En lugar de odiar a la humanidad por la traición de los suyos, decidió que él sería el estándar que sus traidores no pudieron alcanzar.</p>
+        <p>A día de hoy, Dante camina por las Tierras de Primus buscando no una nueva ciudad, sino un nuevo equilibrio. Su alma no se ha vuelto cínica; se ha destilado hasta ser pura como el acero templado. Protege al débil, sea humano, elfo o enano, no por amor a ellos, sino por respeto a la Ley que lleva grabada en el alma. Sigue guardando, más por nostalgia y costumbre que por respeto, los jirones de su capa de capitán, raídos y manchados de polvo, porque el uniforme puede romperse, pero el juramento de un hombre justo es eterno.</p>
+      </div>
+    </article>
+
+  </div><!-- /chapter-container -->
+</main>
+
+<!-- ══════════════ FINAL QUOTE ══════════════ -->
+<div class="final-quote">
+  <blockquote>
+    Me rompieron la cara y me llamaron traidor por no querer asesinar la verdad.
+    Ellos se quedaron con el oro y con el poder, pero yo me quedé con algo que no
+    podrían pagar ni con todas las minas del mundo: el derecho a mirar mi reflejo
+    en el acero y no apartar la vista. Que los hombres me juzguen si quieren;
+    yo solo respondo ante la balanza de Kheos.
+  </blockquote>
+  <div class="ornament" style="opacity:0.5">
+    <div class="ornament-line"></div>
+    <div class="ornament-diamond"></div>
+    <div class="ornament-line"></div>
+  </div>
+  <p class="final-attribution">— Dante de Villefort</p>
+</div>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <span>Un Juramento de Honor</span> &nbsp;·&nbsp; La Historia de Dante de Villefort
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
